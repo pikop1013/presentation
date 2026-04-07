@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 type SlideContent = {
   title: string;
   subtitle: string;
+  minutes: string;
   bullets?: string[];
   cards?: { heading: string; text: string }[];
   timeline?: [string, string][];
@@ -13,84 +14,106 @@ type SlideContent = {
 
 const slides: SlideContent[] = [
   {
-    title: 'React × Next.jsで作る発表資料',
-    subtitle: '動く・育てる・公開できる、プロダクト指向のプレゼン',
-    bullets: [
-      'UIはReactコンポーネントで部品化',
-      'Next.jsで配信最適化（SSR / SSG / Routing）',
-      '資料を「使い捨て」で終わらせない運用へ',
-    ],
+    title: '社内発表：自己紹介 & 業務紹介',
+    subtitle: 'React / Next.jsで作る、20分プレゼンのフォーマット',
+    minutes: '1分',
+    bullets: ['名前・所属・役割', '今日話す内容（自己紹介 / 業務紹介 / 今後）', '質疑応答の時間を最後に2分確保'],
   },
   {
-    title: 'この技術選定の狙い',
-    subtitle: '資料作成の体験を、開発体験に寄せる',
-    bullets: [
-      'デザイン差し替えや再利用が容易',
-      'データやAPIと接続し、ライブデモに拡張可能',
-      'チーム開発（レビュー / CI）にそのまま乗る',
-    ],
-  },
-  {
-    title: 'Reactの強みを活かす構成',
-    subtitle: '「1枚のスライド = 1コンポーネント」設計',
-    cards: [
-      {
-        heading: '再利用性',
-        text: 'タイトル、図解、比較表などを共通コンポーネント化。',
-      },
-      {
-        heading: '状態管理',
-        text: '現在ページ、表示モード、注釈表示を状態として制御。',
-      },
-      {
-        heading: '拡張性',
-        text: 'グラフやフォーム、動画埋め込みを後から追加しやすい。',
-      },
-    ],
-  },
-  {
-    title: 'Next.jsの強みを活かす構成',
-    subtitle: '公開・運用まで考えたプレゼン基盤',
-    cards: [
-      {
-        heading: '高速表示',
-        text: 'Server Components と最適化で初期表示を高速化。',
-      },
-      {
-        heading: '配信しやすい',
-        text: 'URL共有でどこからでも閲覧、更新は即時デプロイ。',
-      },
-      {
-        heading: 'SEO / 共有最適化',
-        text: 'metadata設定で検索・SNS共有時の見え方を整備。',
-      },
-    ],
-  },
-  {
-    title: '今回の発表資料で入れるべき要素',
-    subtitle: '「技術の強み」が伝わる見せ方にする',
+    title: 'アジェンダ（20分）',
+    subtitle: '時間配分が見える構成にする',
+    minutes: '1分',
     timeline: [
-      ['導入', '課題 → なぜWeb化するのか'],
-      ['中盤', 'Reactの部品化で生産性向上を実演'],
-      ['後半', 'Next.jsで公開・運用が楽になる点を提示'],
-      ['締め', '将来拡張（ダッシュボード化 / CMS連携）'],
+      ['導入', '0:00-2:00 目的 / アジェンダ'],
+      ['自己紹介', '2:00-7:00 キャリア / 得意領域 / 価値発揮'],
+      ['業務紹介', '7:00-17:00 担当領域 / 成果 / 課題と改善'],
+      ['締め', '17:00-20:00 まとめ / 今後 / Q&A'],
     ],
   },
   {
-    title: '次のアクション',
-    subtitle: 'まずは最小構成で公開し、改善を回す',
-    bullets: [
-      'このテンプレートをベースに内容を差し替える',
-      'VercelなどでデプロイしてURL共有する',
-      'レビューを受け、スライドを継続改善する',
+    title: '自己紹介：これまでの経験',
+    subtitle: '短く、業務に関係する内容を中心に',
+    minutes: '2分',
+    cards: [
+      { heading: '経歴サマリ', text: 'これまで担当したプロダクトや職種の要点を3つ。' },
+      { heading: '得意領域', text: 'フロントエンド設計、UI改善、開発生産性向上など。' },
+      { heading: '仕事のスタンス', text: '再現性とチーム連携を重視して進める。' },
     ],
-    emphasis: '結論：React/Next.jsなら「発表資料」も継続的に成長させられる。',
+  },
+  {
+    title: '自己紹介：現在のミッション',
+    subtitle: '「何を期待されているか」を明確にする',
+    minutes: '3分',
+    bullets: [
+      '所属チームでの担当範囲（例：画面開発 / 技術選定 / レビュー）',
+      '今期の目標（品質・速度・ユーザー体験）',
+      '社内で貢献したいテーマ（ナレッジ共有・標準化など）',
+    ],
+  },
+  {
+    title: '業務紹介：開発体制と担当範囲',
+    subtitle: '全体像 → 自分の担当、の順で話す',
+    minutes: '2分',
+    bullets: [
+      'プロダクトの概要（誰の何を解決しているか）',
+      'チーム構成（PM / デザイナー / FE / BE）',
+      '自分が責任を持つ機能と意思決定ポイント',
+    ],
+  },
+  {
+    title: '業務紹介：React / Next.js採用の理由',
+    subtitle: '技術選定を、価値に結び付けて説明する',
+    minutes: '2分',
+    cards: [
+      { heading: 'React', text: 'コンポーネント分割で再利用性と保守性を高める。' },
+      { heading: 'Next.js', text: 'Routing・最適化・配信基盤で開発と運用を効率化。' },
+      { heading: 'TypeScript', text: '型安全性で仕様変更時の品質劣化を抑える。' },
+    ],
+  },
+  {
+    title: '業務紹介：日々の開発フロー',
+    subtitle: 'コードで資料を作るメリットもここで接続する',
+    minutes: '2分',
+    timeline: [
+      ['設計', 'Issue化 / 影響範囲確認 / 実装方針レビュー'],
+      ['実装', 'コンポーネント分割 / Story確認 / PR作成'],
+      ['品質', 'Lint / 型チェック / 動作確認 / コードレビュー'],
+      ['改善', '振り返りを次スプリントへ反映'],
+    ],
+  },
+  {
+    title: '業務紹介：成果と学び',
+    subtitle: '定量 + 定性でインパクトを示す',
+    minutes: '2分',
+    bullets: [
+      'リードタイム短縮、バグ削減、UX改善などの実績',
+      '取り組みで得た学び（設計・レビュー・連携）',
+      '今後さらに伸ばしたい技術テーマ',
+    ],
+  },
+  {
+    title: '今後のアクション',
+    subtitle: '個人目標とチーム貢献をセットで示す',
+    minutes: '3分',
+    bullets: [
+      '短期：担当機能の品質向上と開発速度の最適化',
+      '中期：共通コンポーネント整備と実装ルール統一',
+      '長期：ナレッジ共有を仕組み化し、組織に展開',
+    ],
+    emphasis: 'この資料自体をReact / Next.jsで運用し、継続改善していく。',
+  },
+  {
+    title: 'まとめ & Q&A',
+    subtitle: '自己紹介と業務紹介を、今後の協働につなげる',
+    minutes: '2分',
+    bullets: ['今日の要点3つを再確認', '連携して進めたいテーマを提示', '質問・フィードバックを募集'],
   },
 ];
 
 function Slide({ slide }: { slide: SlideContent }) {
   return (
     <section className="slide" aria-live="polite">
+      <p className="minutes">想定時間: {slide.minutes}</p>
       <h1>{slide.title}</h1>
       <p className="subtitle">{slide.subtitle}</p>
 

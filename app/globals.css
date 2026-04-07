@@ -53,6 +53,15 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
 }
 
+
+.minutes {
+  margin: 0 0 0.8rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
 h1 {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 3rem);
