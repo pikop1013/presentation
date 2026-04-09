@@ -45,6 +45,18 @@ export function SlideView({ slide }: SlideViewProps) {
         </div>
       )}
 
+      {slide.drilldowns && slide.drilldowns.length > 0 && (
+        <section className="drilldowns" aria-label="クリックして詳細を表示">
+          <p className="drilldown-label">クリックで詳細を見る</p>
+          {slide.drilldowns.map((drilldown) => (
+            <details key={drilldown.label} className="drilldown-item">
+              <summary>{drilldown.label}</summary>
+              <p>{drilldown.detail}</p>
+            </details>
+          ))}
+        </section>
+      )}
+
       {slide.emphasis && <p className="emphasis">{slide.emphasis}</p>}
     </section>
   );
