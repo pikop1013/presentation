@@ -7,5 +7,6 @@ export type SlideContent = {
   bullets?: string[];
   cards?: { heading: string; text: string }[];
   timeline?: [string, string][];
+  drilldowns?: { label: string; detail: string }[];
   emphasis?: string;
 };

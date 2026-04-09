@@ -20,10 +20,6 @@ export default function Home() {
     });
   }, []);
 
-  const jumpTo = useCallback((index: number) => {
-    setCurrent(Math.max(0, Math.min(slides.length - 1, index)));
-  }, []);
-
   useEffect(() => {
     mainRef.current?.focus();
   }, []);
@@ -33,7 +29,7 @@ export default function Home() {
       ref={mainRef}
       className="layout"
       onClick={(event) => {
-        if ((event.target as HTMLElement).closest('button')) {
+        if ((event.target as HTMLElement).closest('button, summary, details, a, input, textarea, select')) {
           return;
         }
         move(1);
@@ -41,8 +37,6 @@ export default function Home() {
       onKeyDown={(event) => {
         if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') move(1);
         if (event.key === 'ArrowLeft' || event.key === 'PageUp') move(-1);
-        if (event.key === 'Home') jumpTo(0);
-        if (event.key === 'End') jumpTo(slides.length - 1);
       }}
       tabIndex={0}
     >
@@ -63,20 +57,6 @@ export default function Home() {
       <div className="stage">
         <SlideView slide={slides[current]} />
       </div>
-
-      <nav className="thumbs" aria-label="スライド一覧">
-        {slides.map((slide, index) => (
-          <button
-            type="button"
-            key={slide.id}
-            className={index === current ? 'thumb active' : 'thumb'}
-            onClick={() => jumpTo(index)}
-          >
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <small>{slide.title}</small>
-          </button>
-        ))}
-      </nav>
 
       <footer className="controls">
         <button type="button" onClick={() => move(-1)} disabled={current === 0}>
