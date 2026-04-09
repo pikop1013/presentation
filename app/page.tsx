@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 type SlideContent = {
   title: string;
@@ -156,10 +156,11 @@ function Slide({ slide }: { slide: SlideContent }) {
 
 export default function Home() {
   const [current, setCurrent] = useState<number>(0);
+  const mainRef = useRef<HTMLElement | null>(null);
 
   const progress = useMemo(() => ((current + 1) / slides.length) * 100, [current]);
 
-  const move = (step: number) => {
+  const move = useCallback((step: number) => {
     setCurrent((prev) => {
       const next = prev + step;
       if (next < 0 || next >= slides.length) {
@@ -167,14 +168,31 @@ export default function Home() {
       }
       return next;
     });
-  };
+  }, []);
+
+  const jumpTo = useCallback((index: number) => {
+    setCurrent(Math.max(0, Math.min(slides.length - 1, index)));
+  }, []);
+
+  useEffect(() => {
+    mainRef.current?.focus();
+  }, []);
 
   return (
     <main
+      ref={mainRef}
       className="layout"
+      onClick={(event) => {
+        if ((event.target as HTMLElement).closest('button')) {
+          return;
+        }
+        move(1);
+      }}
       onKeyDown={(event) => {
-        if (event.key === 'ArrowRight' || event.key === 'PageDown') move(1);
+        if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') move(1);
         if (event.key === 'ArrowLeft' || event.key === 'PageUp') move(-1);
+        if (event.key === 'Home') jumpTo(0);
+        if (event.key === 'End') jumpTo(slides.length - 1);
       }}
       tabIndex={0}
     >

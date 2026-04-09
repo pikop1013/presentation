@@ -20,8 +20,11 @@ npm run dev
 
 ## 操作
 
+- タップ / クリック: 画面（ボタン以外）を押すと次のスライドへ
 - ボタン: `Prev / Next`
-- キーボード: `← / →` または `PageUp / PageDown`
+- キーボード: `← / →`、`PageUp / PageDown`、`Space`、`Home`、`End`
+
+画面は全画面（100vw x 100vh）で表示されます。
 
 ## スクリプト
 
