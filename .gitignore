@@ -1,0 +1,21 @@
+node_modules/
+.next/
+dist/
+build/
+npm-debug.log*
+.env
+.env.local
+.env.*.local
+.DS_Store
+.vscode/
+.idea/
+coverage/
+coverage-report/
+*.log
+
+# OS files
+.DS_Store
+
+# Editor directories and files
+.vscode/
+*.swp
