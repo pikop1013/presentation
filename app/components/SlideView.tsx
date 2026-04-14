@@ -1,63 +1,79 @@
+import { BenesseWorkSlide } from './slides/BenesseWorkSlide';
+import { HistorySlide } from './slides/HistorySlide';
+import { ResearchSlide } from './slides/ResearchSlide';
+import { SecurityFeatureSlide } from './slides/SecurityFeatureSlide';
+import { WorkHistorySlide } from './slides/WorkHistorySlide';
 import type { SlideContent } from '../types/slide';
 
 type SlideViewProps = {
   slide: SlideContent;
 };
 
+const customSlides: Record<string, React.ComponentType<{ slide: SlideContent }>> = {
+  'student-research': ResearchSlide,
+  'hobby-history': HistorySlide,
+  'work-history': WorkHistorySlide,
+  'stnet-details': SecurityFeatureSlide,
+  'benesse-details': BenesseWorkSlide,
+};
+
 export function SlideView({ slide }: SlideViewProps) {
+  const CustomSlide = customSlides[slide.id];
+
   return (
     <section className={`slide accent-${slide.accent ?? 'default'}`} aria-live="polite">
-      <div className="slide-head">
-        <p className="minutes">想定時間: {slide.minutes}</p>
-        <span className="chip">社内発表スライド</span>
-      </div>
+      {CustomSlide ? (
+        <CustomSlide slide={slide} />
+      ) : (
+        <>
+          <h1>{slide.title}</h1>
+          <p className="subtitle">{slide.subtitle}</p>
 
-      <h1>{slide.title}</h1>
-      <p className="subtitle">{slide.subtitle}</p>
+          {slide.bullets && (
+            <ul>
+              {slide.bullets.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
 
-      {slide.bullets && (
-        <ul>
-          {slide.bullets.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      )}
-
-      {slide.cards && (
-        <div className="cards">
-          {slide.cards.map((card) => (
-            <article key={card.heading} className="card">
-              <h2>{card.heading}</h2>
-              <p>{card.text}</p>
-            </article>
-          ))}
-        </div>
-      )}
-
-      {slide.timeline && (
-        <div className="timeline">
-          {slide.timeline.map(([phase, detail]) => (
-            <div key={phase} className="timeline-item">
-              <strong>{phase}</strong>
-              <span>{detail}</span>
+          {slide.cards && (
+            <div className="cards">
+              {slide.cards.map((card) => (
+                <article key={card.heading} className="card">
+                  <h2>{card.heading}</h2>
+                  <p>{card.text}</p>
+                </article>
+              ))}
             </div>
-          ))}
-        </div>
-      )}
+          )}
 
-      {slide.drilldowns && slide.drilldowns.length > 0 && (
-        <section className="drilldowns" aria-label="クリックして詳細を表示">
-          <p className="drilldown-label">クリックで詳細を見る</p>
-          {slide.drilldowns.map((drilldown) => (
-            <details key={drilldown.label} className="drilldown-item">
-              <summary>{drilldown.label}</summary>
-              <p>{drilldown.detail}</p>
-            </details>
-          ))}
-        </section>
-      )}
+          {slide.timeline && (
+            <div className="timeline">
+              {slide.timeline.map(([phase, detail]) => (
+                <div key={phase} className="timeline-item">
+                  <strong>{phase}</strong>
+                  <span>{detail}</span>
+                </div>
+              ))}
+            </div>
+          )}
 
-      {slide.emphasis && <p className="emphasis">{slide.emphasis}</p>}
+          {slide.drilldowns && slide.drilldowns.length > 0 && (
+            <section className="drilldowns" aria-label="クリックして詳細を表示">
+              <p className="drilldown-label">クリックで詳細を見る</p>
+              {slide.drilldowns.map((drilldown) => (
+                <details key={drilldown.label} className="drilldown-item" data-interactive="true">
+                  <summary>{drilldown.label}</summary>
+                  <p>{drilldown.detail}</p>
+                </details>
+              ))}
+            </section>
+          )}
+
+          {slide.emphasis && <p className="emphasis">{slide.emphasis}</p>}
+        </>
+      )}
     </section>
   );
 }
