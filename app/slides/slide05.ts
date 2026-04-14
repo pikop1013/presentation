@@ -1,14 +1,15 @@
 import type { SlideContent } from '../types/slide';
 
 export const slide05: SlideContent = {
-  id: 'stnet-detail',
-  title: 'ピカラ案件：技術要素と難所',
-  subtitle: '金融・本人確認系の要件を実装に落とし込む',
+  id: 'hobby-history',
+  title: '趣味・これまで',
+  subtitle: '絵を描くことを軸に、継続して活動してきました。',
   minutes: '2分',
-  accent: 'security',
-  bullets: [
-    '本人確認フローは分岐が多く、状態遷移を明確化して実装',
-    '外部サービス障害時のリトライ・フォールバック方針を整理',
-    '監査・運用を意識したログ設計と、問い合わせしやすい構造化を実施',
+  accent: 'hobby',
+  timeline: [
+    ['小学2年〜6年', '画塾で基礎を学ぶ'],
+    ['中学', '美術部に所属'],
+    ['高校', '文化委員長として文化祭の立て看板などを担当'],
+    ['大学', '美術部部長・イベント展示に参加'],
   ],
 };

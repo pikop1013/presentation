@@ -8,5 +8,22 @@ import { slide07 } from './slide07';
 import { slide08 } from './slide08';
 import { slide09 } from './slide09';
 import { slide10 } from './slide10';
+import { slide11 } from './slide11';
+import { slide12 } from './slide12';
+import { slide13 } from './slide13';
 
-export const slides = [slide01, slide02, slide03, slide04, slide05, slide06, slide07, slide08, slide09, slide10];
+export const slides = [
+  slide01,
+  slide02,
+  slide03,
+  slide04,
+  slide05,
+  slide06,
+  slide07,
+  slide08,
+  slide09,
+  slide10,
+  slide11,
+  slide12,
+  slide13,
+];

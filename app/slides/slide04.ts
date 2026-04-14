@@ -1,25 +1,15 @@
 import type { SlideContent } from '../types/slide';
 
 export const slide04: SlideContent = {
-  id: 'stnet-backend',
-  title: '7月〜10月：STNet様 ピカラ開発（バックエンド）',
-  subtitle: '申込受付サービスを中心に、本人確認・決済連携へ対応',
-  minutes: '4分',
-  accent: 'backend',
+  id: 'student-research',
+  title: '学生時代・研究',
+  subtitle: '技術と表現の両方に興味を持って取り組んできました。',
+  minutes: '2分',
+  accent: 'research',
   bullets: [
-    '担当：Java / Spring Boot による申込受付API・業務ロジック開発',
-    '要件：eKYC連携、公的個人認証（マイナンバーカード）対応、ICカード読取、3Dセキュア関連対応',
-    '外部連携：ORCなど周辺システムとのI/F調整、エラー時ハンドリング設計',
-    '意識した点：セキュリティ要件を満たしながら、保守しやすい構成を維持',
+    '色彩画像処理研究室に所属',
+    'イラストの彩色を画像処理する研究を実施',
+    '「見た目の表現」と「技術的な実現」の両立に関心',
   ],
-  drilldowns: [
-    {
-      label: 'API設計で重視したこと',
-      detail: '申込ステータスを一方向で遷移させ、本人確認・決済それぞれの失敗時にも再実行ポイントを明確にしました。',
-    },
-    {
-      label: '外部I/Fでの工夫',
-      detail: 'タイムアウト時は業務影響を抑えるためにリトライ条件を限定し、失敗原因が追えるログ項目を共通化しました。',
-    },
-  ],
+  emphasis: '研究でも、見やすさ・伝わりやすさを意識していました。',
 };
