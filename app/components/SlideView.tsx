@@ -9,7 +9,7 @@ export function SlideView({ slide }: SlideViewProps) {
     <section className={`slide accent-${slide.accent ?? 'default'}`} aria-live="polite">
       <div className="slide-head">
         <p className="minutes">想定時間: {slide.minutes}</p>
-        <span className="chip">React + Next.js Deck</span>
+        <span className="chip">社内発表スライド</span>
       </div>
 
       <h1>{slide.title}</h1>

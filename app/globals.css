@@ -27,7 +27,7 @@ body {
   color: var(--text);
   background:
     radial-gradient(circle at 20% 0%, #ffffff 0%, transparent 35%),
-    radial-gradient(circle at 85% 20%, #dce8ff 0%, transparent 30%),
+    radial-gradient(circle at 85% 20%, #e5edff 0%, transparent 28%),
     linear-gradient(140deg, var(--bg-base), var(--bg-accent));
 }
 
@@ -155,7 +155,7 @@ li {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -291,5 +291,18 @@ button:disabled {
 
   .slide-head {
     flex-wrap: wrap;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 }

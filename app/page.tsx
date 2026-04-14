@@ -43,7 +43,7 @@ export default function Home() {
       <header className="deck-meta">
         <div className="brand">
           <span className="dot" />
-          <p>Internal Session Deck</p>
+          <p>社内発表デッキ</p>
         </div>
         <p className="slide-index">
           {current + 1} / {slides.length}
