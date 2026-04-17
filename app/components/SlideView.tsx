@@ -1,15 +1,25 @@
 import { BenesseWorkSlide } from './slides/BenesseWorkSlide';
 import { HistorySlide } from './slides/HistorySlide';
+import { ProfileHubSlide } from './slides/ProfileHubSlide';
 import { ResearchSlide } from './slides/ResearchSlide';
 import { SecurityFeatureSlide } from './slides/SecurityFeatureSlide';
 import { WorkHistorySlide } from './slides/WorkHistorySlide';
 import type { SlideContent } from '../types/slide';
+import type { TransitionStyle } from '../types/navigation';
 
 type SlideViewProps = {
   slide: SlideContent;
+  transitionStyle: TransitionStyle;
+  onNavigate: (slideId: string, style?: TransitionStyle) => void;
 };
 
-const customSlides: Record<string, React.ComponentType<{ slide: SlideContent }>> = {
+type CustomSlideProps = {
+  slide: SlideContent;
+  onNavigate: (slideId: string, style?: TransitionStyle) => void;
+};
+
+const customSlides: Record<string, React.ComponentType<CustomSlideProps>> = {
+  profile: ProfileHubSlide,
   'student-research': ResearchSlide,
   'hobby-history': HistorySlide,
   'work-history': WorkHistorySlide,
@@ -17,13 +27,13 @@ const customSlides: Record<string, React.ComponentType<{ slide: SlideContent }>>
   'benesse-details': BenesseWorkSlide,
 };
 
-export function SlideView({ slide }: SlideViewProps) {
+export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps) {
   const CustomSlide = customSlides[slide.id];
 
   return (
-    <section className={`slide accent-${slide.accent ?? 'default'}`} aria-live="polite">
+    <section className={`slide accent-${slide.accent ?? 'default'} transition-${transitionStyle}`} aria-live="polite">
       {CustomSlide ? (
-        <CustomSlide slide={slide} />
+        <CustomSlide slide={slide} onNavigate={onNavigate} />
       ) : (
         <>
           <h1>{slide.title}</h1>

@@ -12,7 +12,9 @@ const rows = [
   { key: '通知・誘導', main: '通常キャンペーン導線', junbi: '入学準備向けメッセージに変更' },
 ];
 
-export function BenesseWorkSlide({ slide }: { slide: SlideContent }) {
+export function BenesseWorkSlide({ slide, onNavigate }: { slide: SlideContent; onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void }) {
+  void onNavigate;
+
   const [mode, setMode] = useState<Mode>('junbi');
 
   const summary = useMemo(

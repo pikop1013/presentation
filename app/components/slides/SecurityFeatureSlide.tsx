@@ -11,7 +11,9 @@ const features = [
   { name: '3Dセキュア対応', detail: '決済時の認証連携に合わせて受付フローを調整。' },
 ];
 
-export function SecurityFeatureSlide({ slide }: { slide: SlideContent }) {
+export function SecurityFeatureSlide({ slide, onNavigate }: { slide: SlideContent; onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void }) {
+  void onNavigate;
+
   const [selected, setSelected] = useState(features[0]);
 
   return (
