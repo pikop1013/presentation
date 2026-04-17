@@ -1,15 +1,32 @@
 import type { SlideContent } from '../../types/slide';
 
 const history = [
-  { era: '小学2年〜6年', note: '画塾で基礎を学ぶ' },
-  { era: '中学', note: '美術部に所属' },
-  { era: '高校', note: '文化委員長として文化祭の立て看板を担当' },
-  { era: '大学', note: '美術部部長・イベント展示に参加' },
+  { era: '小学2年〜6年', note: '画塾に通い、デッサンや着彩の基礎を学ぶ' },
+  { era: '中学', note: '美術部に所属し、日常的に制作を継続' },
+  { era: '高校', note: '文化委員長として文化祭の立て看板などを担当' },
+  { era: '大学', note: '美術部部長として活動し、イベント展示にも参加' },
 ];
 
-export function HistorySlide({ slide }: { slide: SlideContent }) {
+export function HistorySlide({
+  slide,
+  onNavigate,
+}: {
+  slide: SlideContent;
+  onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void;
+}) {
   return (
     <>
+      <div className="detail-header-row">
+        <button
+          type="button"
+          className="back-to-list"
+          data-interactive="true"
+          onClick={() => onNavigate?.('profile', 'back')}
+        >
+          一覧へ戻る
+        </button>
+      </div>
+
       <h1>{slide.title}</h1>
       <p className="subtitle">{slide.subtitle}</p>
 
@@ -22,7 +39,7 @@ export function HistorySlide({ slide }: { slide: SlideContent }) {
         ))}
       </div>
 
-      <p className="emphasis">昔から「描くこと」「伝えること」が好きでした。</p>
+      <p className="emphasis">絵を描くことを、ずっと趣味として続けています。</p>
     </>
   );
 }

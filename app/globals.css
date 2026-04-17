@@ -363,12 +363,157 @@ li {
   background: #eff3ff;
 }
 
+
+
+.profile-hub-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.profile-basic,
+.profile-detail-links {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fbfcff;
+  padding: 1rem 1.1rem;
+}
+
+.profile-basic dl {
+  margin: 0.9rem 0 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.profile-basic dt {
+  color: #3d5da2;
+  font-weight: 700;
+  margin-bottom: 0.22rem;
+}
+
+.profile-basic dd {
+  margin: 0;
+}
+
+.detail-links-label {
+  margin: 0 0 0.72rem;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.profile-detail-links {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+}
+
+.detail-link-button {
+  border: 1px solid #b9c7ea;
+  border-radius: 14px;
+  background: #fff;
+  padding: 0.9rem 1rem;
+  text-align: left;
+  display: grid;
+  gap: 0.22rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.detail-link-title {
+  font-size: 0.9rem;
+  color: #5671b8;
+  font-weight: 700;
+}
+
+.detail-link-button strong {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.detail-link-cue {
+  color: #3f5ea8;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.detail-link-button.selected {
+  border-color: #5f7bda;
+  background: #eef3ff;
+  transform: scale(1.01);
+}
+
+.detail-header-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.35rem;
+}
+
+.back-to-list {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: #3f5ea8;
+  font-weight: 700;
+  padding: 0.44rem 0.9rem;
+  cursor: pointer;
+}
+
+.transition-default {
+  animation: slideFadeIn 220ms ease;
+}
+
+.transition-drilldown {
+  animation: drilldownIn 260ms ease;
+}
+
+.transition-back {
+  animation: backToListIn 240ms ease;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0.65;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drilldownIn {
+  from {
+    opacity: 0.2;
+    transform: translateX(18px) scale(0.995);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes backToListIn {
+  from {
+    opacity: 0.25;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media (max-width: 980px) {
   .cards,
   .history-grid,
   .research-layout,
   .work-history-layout,
-  .security-layout {
+  .security-layout,
+  .profile-hub-layout {
     grid-template-columns: 1fr;
   }
 

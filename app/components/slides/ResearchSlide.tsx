@@ -1,16 +1,33 @@
 import type { SlideContent } from '../../types/slide';
 
-export function ResearchSlide({ slide }: { slide: SlideContent }) {
+export function ResearchSlide({
+  slide,
+  onNavigate,
+}: {
+  slide: SlideContent;
+  onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void;
+}) {
   return (
     <>
+      <div className="detail-header-row">
+        <button
+          type="button"
+          className="back-to-list"
+          data-interactive="true"
+          onClick={() => onNavigate?.('profile', 'back')}
+        >
+          一覧へ戻る
+        </button>
+      </div>
+
       <h1>{slide.title}</h1>
       <p className="subtitle">{slide.subtitle}</p>
 
       <div className="research-layout">
         <section className="research-card">
-          <h2>所属研究室</h2>
-          <p>色彩画像処理研究室</p>
-          <p className="muted-copy">イラストの彩色を画像処理する研究に取り組みました。</p>
+          <h2>色彩画像処理研究室</h2>
+          <p>イラストの彩色を画像処理する研究をしていました。</p>
+          <p className="muted-copy">線画に対して、自然な色の付き方をどう実現するかを扱っていました。</p>
         </section>
 
         <section className="sketch-flow" aria-label="線画から彩色へのイメージ">
@@ -26,7 +43,7 @@ export function ResearchSlide({ slide }: { slide: SlideContent }) {
         </section>
       </div>
 
-      <p className="emphasis">画像処理と表現の両方に関心を持ってきました。</p>
+      <p className="emphasis">画像処理で、イラスト制作を手助けするテーマに取り組んでいました。</p>
     </>
   );
 }

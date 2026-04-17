@@ -21,7 +21,9 @@ const projects = [
   },
 ];
 
-export function WorkHistorySlide({ slide }: { slide: SlideContent }) {
+export function WorkHistorySlide({ slide, onNavigate }: { slide: SlideContent; onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void }) {
+  void onNavigate;
+
   const [active, setActive] = useState(projects[2]);
 
   return (
