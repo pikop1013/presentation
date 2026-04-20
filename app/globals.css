@@ -459,6 +459,112 @@ li {
   cursor: pointer;
 }
 
+.title-slide-layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: center;
+}
+
+.title-copy {
+  display: grid;
+  align-content: center;
+  gap: 0.95rem;
+}
+
+.title-kicker {
+  margin: 0;
+  color: #5a76c8;
+  font-size: clamp(0.84rem, 1.15vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title-heading {
+  margin: 0;
+  font-size: clamp(2.5rem, 5.2vw, 4.1rem);
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+}
+
+.title-name {
+  margin: 0.15rem 0 0;
+  color: #2f4f95;
+  font-size: clamp(1.18rem, 1.95vw, 1.65rem);
+  font-weight: 700;
+}
+
+.title-support {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+}
+
+.title-visual-placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.placeholder-surface {
+  width: min(96%, 520px);
+  aspect-ratio: 16 / 10;
+  border-radius: 26px;
+  border: 1px solid #d7e0f4;
+  background: linear-gradient(140deg, #f8faff 0%, #eef3ff 100%);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: #62759e;
+}
+
+.placeholder-glow {
+  position: absolute;
+  width: 72%;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(111, 139, 223, 0.23) 0%, rgba(111, 139, 223, 0) 66%);
+  top: -16%;
+  right: -12%;
+}
+
+.placeholder-frame {
+  width: 79%;
+  height: 66%;
+  border-radius: 18px;
+  border: 2px dashed #adc0ef;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.placeholder-stamp {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 999px;
+  border: 1px solid #c3d1f1;
+  background: rgba(255, 255, 255, 0.82);
+  color: #6480ca;
+  padding: 0.35rem 0.68rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.placeholder-surface p {
+  margin: 0;
+  position: absolute;
+  bottom: 0.95rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(0.85rem, 1.08vw, 0.98rem);
+  color: #647aa8;
+}
+
 .transition-default {
   animation: slideFadeIn 220ms ease;
 }
@@ -513,8 +619,17 @@ li {
   .research-layout,
   .work-history-layout,
   .security-layout,
-  .profile-hub-layout {
+  .profile-hub-layout,
+  .title-slide-layout {
     grid-template-columns: 1fr;
+  }
+
+  .title-slide-layout {
+    align-content: center;
+  }
+
+  .title-visual-placeholder {
+    min-height: 240px;
   }
 
   .compare-row {
