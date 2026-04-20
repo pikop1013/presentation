@@ -3,6 +3,7 @@ import { HistorySlide } from './slides/HistorySlide';
 import { ProfileHubSlide } from './slides/ProfileHubSlide';
 import { ResearchSlide } from './slides/ResearchSlide';
 import { SecurityFeatureSlide } from './slides/SecurityFeatureSlide';
+import { TitleSlide } from './slides/TitleSlide';
 import { WorkHistorySlide } from './slides/WorkHistorySlide';
 import type { SlideContent } from '../types/slide';
 import type { TransitionStyle } from '../types/navigation';
@@ -25,6 +26,7 @@ const customSlides: Record<string, React.ComponentType<CustomSlideProps>> = {
   'work-history': WorkHistorySlide,
   'stnet-details': SecurityFeatureSlide,
   'benesse-details': BenesseWorkSlide,
+  title: TitleSlide,
 };
 
 export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps) {
