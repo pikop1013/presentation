@@ -1,10 +1,5 @@
-import { BenesseWorkSlide } from './slides/BenesseWorkSlide';
-import { HistorySlide } from './slides/HistorySlide';
-import { ProfileHubSlide } from './slides/ProfileHubSlide';
-import { ResearchSlide } from './slides/ResearchSlide';
-import { SecurityFeatureSlide } from './slides/SecurityFeatureSlide';
+import type { ComponentType } from 'react';
 import { TitleSlide } from './slides/TitleSlide';
-import { WorkHistorySlide } from './slides/WorkHistorySlide';
 import type { SlideContent } from '../types/slide';
 import type { TransitionStyle } from '../types/navigation';
 
@@ -19,13 +14,7 @@ type CustomSlideProps = {
   onNavigate: (slideId: string, style?: TransitionStyle) => void;
 };
 
-const customSlides: Record<string, React.ComponentType<CustomSlideProps>> = {
-  profile: ProfileHubSlide,
-  'student-research': ResearchSlide,
-  'hobby-history': HistorySlide,
-  'work-history': WorkHistorySlide,
-  'stnet-details': SecurityFeatureSlide,
-  'benesse-details': BenesseWorkSlide,
+const customSlides: Record<string, ComponentType<CustomSlideProps>> = {
   title: TitleSlide,
 };
 
@@ -41,12 +30,15 @@ export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps
           <h1>{slide.title}</h1>
           <p className="subtitle">{slide.subtitle}</p>
 
-          {slide.bullets && (
-            <ul>
-              {slide.bullets.map((item) => (
-                <li key={item}>{item}</li>
+          {slide.timeline && (
+            <div className="timeline">
+              {slide.timeline.map(([phase, detail]) => (
+                <div key={phase} className="timeline-item">
+                  <strong>{phase}</strong>
+                  <span>{detail}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
 
           {slide.cards && (
@@ -60,27 +52,24 @@ export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps
             </div>
           )}
 
-          {slide.timeline && (
-            <div className="timeline">
-              {slide.timeline.map(([phase, detail]) => (
-                <div key={phase} className="timeline-item">
-                  <strong>{phase}</strong>
-                  <span>{detail}</span>
-                </div>
+          {slide.bullets && (
+            <ul>
+              {slide.bullets.map((item) => (
+                <li key={item}>{item}</li>
               ))}
-            </div>
+            </ul>
           )}
 
-          {slide.drilldowns && slide.drilldowns.length > 0 && (
-            <section className="drilldowns" aria-label="クリックして詳細を表示">
-              <p className="drilldown-label">クリックで詳細を見る</p>
-              {slide.drilldowns.map((drilldown) => (
-                <details key={drilldown.label} className="drilldown-item" data-interactive="true">
-                  <summary>{drilldown.label}</summary>
-                  <p>{drilldown.detail}</p>
-                </details>
+          {slide.placeholders && (
+            <div className={`media-grid media-grid-${slide.placeholderLayout ?? 'gallery'}`}>
+              {slide.placeholders.map((item) => (
+                <article key={item.label} className="media-placeholder">
+                  <div className="media-frame" />
+                  <h3>{item.label}</h3>
+                  {item.note && <p className="muted-copy">{item.note}</p>}
+                </article>
               ))}
-            </section>
+            </div>
           )}
 
           {slide.emphasis && <p className="emphasis">{slide.emphasis}</p>}

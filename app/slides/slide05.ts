@@ -1,9 +1,17 @@
 import type { SlideContent } from '../types/slide';
 
 export const slide05: SlideContent = {
-  id: 'hobby-history',
-  title: '趣味の詳細',
-  subtitle: '絵を描くことを続けてきた活動の流れ',
+  id: 'hobby-1',
+  title: '趣味・制作活動（前半）',
+  subtitle: '継続してきた制作活動の流れ',
   minutes: '2分',
-  accent: 'hobby',
+  cards: [
+    { heading: '小学生〜中学', text: '画塾と美術部で、描くことを日常的に継続。' },
+    { heading: '高校', text: '文化祭運営委員会で立て看板制作・MV制作・飾りつけを担当。' },
+  ],
+  placeholders: [
+    { label: '高校文化祭 立て看板' },
+    { label: '高校文化祭 テーマソングMV' },
+  ],
+  placeholderLayout: 'double',
 };
