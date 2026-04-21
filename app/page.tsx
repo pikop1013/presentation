@@ -57,7 +57,7 @@ export default function Home() {
   return (
     <main
       ref={mainRef}
-      className="layout"
+      className="h-screen w-screen p-3 outline-none md:p-4"
       onClick={(event) => {
         if (isInteractiveTarget(event.target)) {
           return;
@@ -79,7 +79,7 @@ export default function Home() {
       }}
       tabIndex={0}
     >
-      <div className="stage">
+      <div className="h-full w-full">
         <SlideView
           key={`${activeSlide.id}-${transitionToken}`}
           slide={activeSlide}

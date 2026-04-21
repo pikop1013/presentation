@@ -47,6 +47,13 @@ npm run dev
 - `npm run start`: 本番サーバー起動
 - `npm run lint`: Lint実行
 
+## スタイリング
+
+- Tailwind CSS を導入済みです。
+- `app/page.tsx` などでユーティリティクラスを使って、レイアウトを素早く調整できます。
+- 既存の `app/globals.css` にあるカスタムスタイルと併用可能です。
+- 共通表示(`app/components/SlideView.tsx`)のコンテナ・カード・タイムラインは Tailwind ユーティリティへ段階的に置き換えています。
+
 ## ファイル構成
 
 - `app/page.tsx`: デッキ制御（遷移、操作、進捗、サムネイル）
