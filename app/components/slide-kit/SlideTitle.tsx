@@ -9,7 +9,7 @@ type SlideTitleProps = {
 
 export function SlideTitle({ title, subtitle, className }: SlideTitleProps) {
   return (
-    <header className={cn('space-y-3', className)}>
+    <header className={cn('space-y-4', className)}>
       <h1 className={typography.title}>{title}</h1>
       {subtitle ? <p className={typography.subtitle}>{subtitle}</p> : null}
     </header>

@@ -3,6 +3,7 @@ import { SlideBody } from '../slide-kit/SlideBody';
 import { SlideShell } from '../slide-kit/SlideShell';
 import { SlideTitle } from '../slide-kit/SlideTitle';
 import { TwoColumn } from '../slide-kit/TwoColumn';
+import { typography } from '../slide-kit/styles';
 
 export function Slide01Title() {
   return (
@@ -11,7 +12,7 @@ export function Slide01Title() {
       <SlideBody>
         <TwoColumn
           ratio="5:4"
-          left={<p className="text-3xl leading-relaxed text-slate-700">2年目の自己紹介と業務紹介です。</p>}
+          left={<p className={typography.body}>2年目の自己紹介と業務紹介です。</p>}
           right={<ImageFrame alt="導入ビジュアル" caption="導入画像を後で差し替え" />}
         />
       </SlideBody>

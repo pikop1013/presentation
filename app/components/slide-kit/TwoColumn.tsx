@@ -17,7 +17,7 @@ const ratioClass: Record<NonNullable<TwoColumnProps['ratio']>, string> = {
 
 export function TwoColumn({ left, right, ratio = '1:1', className }: TwoColumnProps) {
   return (
-    <div className={cn('grid h-full gap-8', ratioClass[ratio], className)}>
+    <div className={cn('grid h-full gap-10', ratioClass[ratio], className)}>
       <div className="min-w-0">{left}</div>
       <div className="min-w-0">{right}</div>
     </div>

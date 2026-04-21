@@ -6,5 +6,5 @@ type SlideBodyProps = PropsWithChildren<{
 }>;
 
 export function SlideBody({ className, children }: SlideBodyProps) {
-  return <div className={cn('flex-1', className)}>{children}</div>;
+  return <div className={cn('flex-1 min-h-0', className)}>{children}</div>;
 }

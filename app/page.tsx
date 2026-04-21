@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <main
       ref={mainRef}
-      className="flex h-screen w-screen items-center justify-center bg-slate-100 p-4 outline-none"
+      className="flex h-screen w-screen items-center justify-center bg-slate-100 p-6 outline-none"
       onClick={(event) => {
         if (isInteractiveTarget(event.target)) return;
         move(1);
@@ -54,7 +54,7 @@ export default function Home() {
     >
       <div className="relative aspect-video w-[min(96vw,170.6vh)]">
         <SlideView slide={activeSlide} />
-        <p className="absolute bottom-4 right-5 rounded-full border border-slate-300 bg-white/85 px-3 py-1 text-sm font-semibold text-slate-600">
+        <p className="absolute bottom-5 right-6 rounded-full border border-slate-300/90 bg-white/90 px-3.5 py-1 text-sm font-semibold tracking-wide text-slate-600 shadow-sm">
           {current + 1} / {slides.length}
         </p>
       </div>
