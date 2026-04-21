@@ -9,4 +9,9 @@ export type SlideContent = {
   timeline?: [string, string][];
   drilldowns?: { label: string; detail: string }[];
   emphasis?: string;
+  placeholders?: {
+    label: string;
+    note?: string;
+  }[];
+  placeholderLayout?: 'single' | 'double' | 'gallery';
 };
