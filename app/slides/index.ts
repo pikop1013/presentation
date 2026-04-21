@@ -1,33 +1,39 @@
-import { slide01 } from './slide01';
-import { slide03 } from './slide03';
-import { slide04 } from './slide04';
-import { slide05 } from './slide05';
-import { slide06 } from './slide06';
-import { slide08 } from './slide08';
-import { slide09 } from './slide09';
-import { slide10 } from './slide10';
-import { slide11 } from './slide11';
-import { slide12 } from './slide12';
-import { slide14 } from './slide14';
-import { slide15 } from './slide15';
-import { slide16 } from './slide16';
-import { slide17 } from './slide17';
-import { slide18 } from './slide18';
+import type { ComponentType } from 'react';
+import { Slide01Title } from '../components/slides/Slide01Title';
+import { Slide03Profile } from '../components/slides/Slide03Profile';
+import { Slide04Lab } from '../components/slides/Slide04Lab';
+import { Slide05HobbyA } from '../components/slides/Slide05HobbyA';
+import { Slide06HobbyB } from '../components/slides/Slide06HobbyB';
+import { Slide08WorkHistory } from '../components/slides/Slide08WorkHistory';
+import { Slide09Training } from '../components/slides/Slide09Training';
+import { Slide10Stnet } from '../components/slides/Slide10Stnet';
+import { Slide11BenesseIntro } from '../components/slides/Slide11BenesseIntro';
+import { Slide12ServiceAdjust } from '../components/slides/Slide12ServiceAdjust';
+import { Slide14Ownership } from '../components/slides/Slide14Ownership';
+import { Slide15Challenges } from '../components/slides/Slide15Challenges';
+import { Slide16Summary } from '../components/slides/Slide16Summary';
+import { Slide17Future } from '../components/slides/Slide17Future';
+import { Slide18Closing } from '../components/slides/Slide18Closing';
 
-export const slides = [
-  slide01,
-  slide03,
-  slide04,
-  slide05,
-  slide06,
-  slide08,
-  slide09,
-  slide10,
-  slide11,
-  slide12,
-  slide14,
-  slide15,
-  slide16,
-  slide17,
-  slide18,
+export type SlideDefinition = {
+  id: string;
+  component: ComponentType;
+};
+
+export const slides: SlideDefinition[] = [
+  { id: 'title', component: Slide01Title },
+  { id: 'profile', component: Slide03Profile },
+  { id: 'lab', component: Slide04Lab },
+  { id: 'hobby-1', component: Slide05HobbyA },
+  { id: 'hobby-2', component: Slide06HobbyB },
+  { id: 'work-history', component: Slide08WorkHistory },
+  { id: 'training', component: Slide09Training },
+  { id: 'stnet', component: Slide10Stnet },
+  { id: 'benesse-intro', component: Slide11BenesseIntro },
+  { id: 'service-adjust', component: Slide12ServiceAdjust },
+  { id: 'ownership', component: Slide14Ownership },
+  { id: 'challenges', component: Slide15Challenges },
+  { id: 'summary', component: Slide16Summary },
+  { id: 'future', component: Slide17Future },
+  { id: 'closing', component: Slide18Closing },
 ];
