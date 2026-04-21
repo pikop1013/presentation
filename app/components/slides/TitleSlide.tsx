@@ -1,6 +1,14 @@
 import type { SlideContent } from '../../types/slide';
+import type { TransitionStyle } from '../../types/navigation';
 
-export function TitleSlide({ slide }: { slide: SlideContent; onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void }) {
+export function TitleSlide({
+  slide,
+}: {
+  slide: SlideContent;
+  transitionStyle?: TransitionStyle;
+  transitionToken?: number;
+  onNavigate?: (slideId: string, style?: 'default' | 'drilldown' | 'back') => void;
+}) {
   return (
     <div className="title-slide-layout">
       <section className="title-copy" aria-label="発表タイトル">

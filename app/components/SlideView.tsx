@@ -1,30 +1,42 @@
 import type { ComponentType } from 'react';
 import { TitleSlide } from './slides/TitleSlide';
+import { HobbyFlowSlide } from './slides/HobbyFlowSlide';
 import type { SlideContent } from '../types/slide';
 import type { TransitionStyle } from '../types/navigation';
 
 type SlideViewProps = {
   slide: SlideContent;
   transitionStyle: TransitionStyle;
+  transitionToken: number;
   onNavigate: (slideId: string, style?: TransitionStyle) => void;
 };
 
 type CustomSlideProps = {
   slide: SlideContent;
+  transitionStyle: TransitionStyle;
+  transitionToken: number;
   onNavigate: (slideId: string, style?: TransitionStyle) => void;
 };
 
 const customSlides: Record<string, ComponentType<CustomSlideProps>> = {
+  'hobby-1': HobbyFlowSlide,
+  'hobby-2': HobbyFlowSlide,
   title: TitleSlide,
 };
 
-export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps) {
+export function SlideView({ slide, transitionStyle, transitionToken, onNavigate }: SlideViewProps) {
   const CustomSlide = customSlides[slide.id];
+  const transitionClass = slide.layoutGroup ? 'transition-none' : `transition-${transitionStyle}`;
 
   return (
-    <section className={`slide accent-${slide.accent ?? 'default'} transition-${transitionStyle}`} aria-live="polite">
+    <section className={`slide accent-${slide.accent ?? 'default'} ${transitionClass}`} aria-live="polite">
       {CustomSlide ? (
-        <CustomSlide slide={slide} onNavigate={onNavigate} />
+        <CustomSlide
+          slide={slide}
+          transitionStyle={transitionStyle}
+          transitionToken={transitionToken}
+          onNavigate={onNavigate}
+        />
       ) : (
         <>
           <h1>{slide.title}</h1>
@@ -63,11 +75,13 @@ export function SlideView({ slide, transitionStyle, onNavigate }: SlideViewProps
           {slide.placeholders && (
             <div className={`media-grid media-grid-${slide.placeholderLayout ?? 'gallery'}`}>
               {slide.placeholders.map((item) => (
-                <article key={item.label} className="media-placeholder">
-                  <div className="media-frame" />
-                  <h3>{item.label}</h3>
-                  {item.note && <p className="muted-copy">{item.note}</p>}
-                </article>
+                  <article key={item.label} className="media-placeholder">
+                    <div className={item.imageSrc ? 'media-frame has-image' : 'media-frame'}>
+                      {item.imageSrc ? <img src={item.imageSrc} alt={item.imageAlt ?? item.label} /> : null}
+                    </div>
+                    <h3>{item.label}</h3>
+                    {item.note && <p className="muted-copy">{item.note}</p>}
+                  </article>
               ))}
             </div>
           )}

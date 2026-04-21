@@ -4,6 +4,7 @@ export type SlideContent = {
   subtitle: string;
   minutes: string;
   accent?: string;
+  layoutGroup?: string;
   bullets?: string[];
   cards?: { heading: string; text: string }[];
   timeline?: [string, string][];
@@ -12,6 +13,8 @@ export type SlideContent = {
   placeholders?: {
     label: string;
     note?: string;
+    imageSrc?: string;
+    imageAlt?: string;
   }[];
   placeholderLayout?: 'single' | 'double' | 'gallery';
 };

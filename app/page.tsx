@@ -26,7 +26,7 @@ export default function Home() {
       if (next < 0 || next >= slides.length) {
         return prev;
       }
-      setTransitionStyle('default');
+      setTransitionStyle(step > 0 ? 'default' : 'back');
       setTransitionToken((token) => token + 1);
       return next;
     });
@@ -53,6 +53,7 @@ export default function Home() {
   }, []);
 
   const activeSlide = useMemo(() => slides[current], [current]);
+  const slideRenderKey = activeSlide.layoutGroup ?? `${activeSlide.id}-${transitionToken}`;
 
   return (
     <main
@@ -81,9 +82,10 @@ export default function Home() {
     >
       <div className="stage">
         <SlideView
-          key={`${activeSlide.id}-${transitionToken}`}
+          key={slideRenderKey}
           slide={activeSlide}
           transitionStyle={transitionStyle}
+          transitionToken={transitionToken}
           onNavigate={navigateToSlide}
         />
       </div>
