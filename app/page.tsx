@@ -1,29 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { SlideView } from './components/SlideView';
 import { slides } from './slides';
-import type { TransitionStyle } from './types/navigation';
-
-const SLIDE_WIDTH = 1800;
-const SLIDE_HEIGHT = 1100;
 
 const isInteractiveTarget = (target: EventTarget | null) => {
   const element = target as HTMLElement | null;
   return Boolean(
-    element?.closest(
-      'button, summary, details, a, input, textarea, select, [role="button"], [role="tab"], [data-interactive="true"]',
-    ),
+    element?.closest('button, summary, details, a, input, textarea, select, [role="button"], [role="tab"]'),
   );
 };
 
 export default function Home() {
   const [current, setCurrent] = useState<number>(0);
-  const [transitionStyle, setTransitionStyle] = useState<TransitionStyle>('default');
-  const [transitionToken, setTransitionToken] = useState(0);
   const mainRef = useRef<HTMLElement | null>(null);
-  const viewportRef = useRef<HTMLDivElement | null>(null);
-  const [viewport, setViewport] = useState({ width: SLIDE_WIDTH, height: SLIDE_HEIGHT });
 
   const move = useCallback((step: number) => {
     setCurrent((prev) => {
@@ -31,24 +21,6 @@ export default function Home() {
       if (next < 0 || next >= slides.length) {
         return prev;
       }
-      setTransitionStyle('default');
-      setTransitionToken((token) => token + 1);
-      return next;
-    });
-  }, []);
-
-  const navigateToSlide = useCallback((slideId: string, style: TransitionStyle = 'default') => {
-    const next = slides.findIndex((slide) => slide.id === slideId);
-    if (next === -1) {
-      return;
-    }
-
-    setCurrent((prev) => {
-      if (prev === next) {
-        return prev;
-      }
-      setTransitionStyle(style);
-      setTransitionToken((token) => token + 1);
       return next;
     });
   }, []);
@@ -57,55 +29,18 @@ export default function Home() {
     mainRef.current?.focus();
   }, []);
 
-  useLayoutEffect(() => {
-    const element = viewportRef.current;
-
-    if (!element) {
-      return;
-    }
-
-    const updateViewport = () => {
-      const { width, height } = element.getBoundingClientRect();
-      setViewport({
-        width: Math.max(width, 0),
-        height: Math.max(height, 0),
-      });
-    };
-
-    updateViewport();
-
-    const observer = new ResizeObserver(() => {
-      updateViewport();
-    });
-
-    observer.observe(element);
-    window.addEventListener('resize', updateViewport);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('resize', updateViewport);
-    };
-  }, []);
-
   const activeSlide = useMemo(() => slides[current], [current]);
-  const scale = Math.min(viewport.width / SLIDE_WIDTH, viewport.height / SLIDE_HEIGHT) || 1;
-  const scaledWidth = SLIDE_WIDTH * scale;
-  const scaledHeight = SLIDE_HEIGHT * scale;
 
   return (
     <main
       ref={mainRef}
-      className="h-screen w-screen overflow-hidden outline-none"
+      className="flex h-screen w-screen items-center justify-center bg-slate-100 p-4 outline-none"
       onClick={(event) => {
-        if (isInteractiveTarget(event.target)) {
-          return;
-        }
+        if (isInteractiveTarget(event.target)) return;
         move(1);
       }}
       onKeyDown={(event) => {
-        if (isInteractiveTarget(event.target)) {
-          return;
-        }
+        if (isInteractiveTarget(event.target)) return;
         if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
           event.preventDefault();
           move(1);
@@ -117,30 +52,11 @@ export default function Home() {
       }}
       tabIndex={0}
     >
-      <div ref={viewportRef} className="slide-stage">
-        <div
-          className="slide-stage__frame"
-          style={{
-            width: `${scaledWidth}px`,
-            height: `${scaledHeight}px`,
-          }}
-        >
-          <div
-            className="slide-stage__scaled"
-            style={{
-              width: `${SLIDE_WIDTH}px`,
-              height: `${SLIDE_HEIGHT}px`,
-              transform: `scale(${scale})`,
-            }}
-          >
-            <SlideView
-              key={`${activeSlide.id}-${transitionToken}`}
-              slide={activeSlide}
-              transitionStyle={transitionStyle}
-              onNavigate={navigateToSlide}
-            />
-          </div>
-        </div>
+      <div className="relative aspect-video w-[min(96vw,170.6vh)]">
+        <SlideView slide={activeSlide} />
+        <p className="absolute bottom-4 right-5 rounded-full border border-slate-300 bg-white/85 px-3 py-1 text-sm font-semibold text-slate-600">
+          {current + 1} / {slides.length}
+        </p>
       </div>
     </main>
   );
