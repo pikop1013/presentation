@@ -1,9 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { SlideView } from './components/SlideView';
 import { slides } from './slides';
 import type { TransitionStyle } from './types/navigation';
+
+const SLIDE_WIDTH = 1800;
+const SLIDE_HEIGHT = 1100;
 
 const isInteractiveTarget = (target: EventTarget | null) => {
   const element = target as HTMLElement | null;
@@ -19,6 +22,8 @@ export default function Home() {
   const [transitionStyle, setTransitionStyle] = useState<TransitionStyle>('default');
   const [transitionToken, setTransitionToken] = useState(0);
   const mainRef = useRef<HTMLElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+  const [viewport, setViewport] = useState({ width: SLIDE_WIDTH, height: SLIDE_HEIGHT });
 
   const move = useCallback((step: number) => {
     setCurrent((prev) => {
@@ -52,12 +57,45 @@ export default function Home() {
     mainRef.current?.focus();
   }, []);
 
+  useLayoutEffect(() => {
+    const element = viewportRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const updateViewport = () => {
+      const { width, height } = element.getBoundingClientRect();
+      setViewport({
+        width: Math.max(width, 0),
+        height: Math.max(height, 0),
+      });
+    };
+
+    updateViewport();
+
+    const observer = new ResizeObserver(() => {
+      updateViewport();
+    });
+
+    observer.observe(element);
+    window.addEventListener('resize', updateViewport);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateViewport);
+    };
+  }, []);
+
   const activeSlide = useMemo(() => slides[current], [current]);
+  const scale = Math.min(viewport.width / SLIDE_WIDTH, viewport.height / SLIDE_HEIGHT) || 1;
+  const scaledWidth = SLIDE_WIDTH * scale;
+  const scaledHeight = SLIDE_HEIGHT * scale;
 
   return (
     <main
       ref={mainRef}
-      className="h-screen w-screen p-3 outline-none md:p-4"
+      className="h-screen w-screen overflow-hidden outline-none"
       onClick={(event) => {
         if (isInteractiveTarget(event.target)) {
           return;
@@ -79,13 +117,30 @@ export default function Home() {
       }}
       tabIndex={0}
     >
-      <div className="h-full w-full">
-        <SlideView
-          key={`${activeSlide.id}-${transitionToken}`}
-          slide={activeSlide}
-          transitionStyle={transitionStyle}
-          onNavigate={navigateToSlide}
-        />
+      <div ref={viewportRef} className="slide-stage">
+        <div
+          className="slide-stage__frame"
+          style={{
+            width: `${scaledWidth}px`,
+            height: `${scaledHeight}px`,
+          }}
+        >
+          <div
+            className="slide-stage__scaled"
+            style={{
+              width: `${SLIDE_WIDTH}px`,
+              height: `${SLIDE_HEIGHT}px`,
+              transform: `scale(${scale})`,
+            }}
+          >
+            <SlideView
+              key={`${activeSlide.id}-${transitionToken}`}
+              slide={activeSlide}
+              transitionStyle={transitionStyle}
+              onNavigate={navigateToSlide}
+            />
+          </div>
+        </div>
       </div>
     </main>
   );

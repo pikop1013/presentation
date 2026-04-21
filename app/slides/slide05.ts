@@ -1,4 +1,5 @@
 import type { SlideContent } from '../types/slide';
+import tatekanban from '../image/tatekanban.jpg';
 
 export const slide05: SlideContent = {
   id: 'hobby-1',
@@ -10,7 +11,13 @@ export const slide05: SlideContent = {
     { heading: '高校', text: '文化祭運営委員会で立て看板制作・MV制作・飾りつけを担当。' },
   ],
   placeholders: [
-    { label: '高校文化祭 立て看板' },
+    {
+      label: '高校文化祭 立て看板',
+      imageSrc: tatekanban.src,
+      imageWidth: '78%',
+      imageHeight: '300px',
+      imageFit: 'contain',
+    },
     { label: '高校文化祭 テーマソングMV' },
   ],
   placeholderLayout: 'double',

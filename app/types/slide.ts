@@ -12,6 +12,10 @@ export type SlideContent = {
   placeholders?: {
     label: string;
     note?: string;
+    imageSrc?: string;
+    imageWidth?: string;
+    imageHeight?: string;
+    imageFit?: 'cover' | 'contain';
   }[];
   placeholderLayout?: 'single' | 'double' | 'gallery';
 };
